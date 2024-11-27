@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="7th Proyect" />
+    <meta name="author" content="Alejandro Zuluaga" />
+    <meta name="keywords" content="HTML, CSS, JavaScript" />
+    <title>Around the U.S</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+    <link rel="stylesheet" href="vendor/normalize.css" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div class="header__logo">
+          <img
+            src="./images/logo.png"
+            alt="Logo Around U.S"
+            class="header__logo-img"
+          />
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- Perfil -->
+        <section class="profile">
+          <div class="profile__container">
+            <img
+              src="./images/profile.jpg"
+              alt="foto de perfil"
+              class="profile__avatar"
+            />
+            <div class="profile__info">
+              <h1 class="profile__info-header">Alejandro Zuluaga</h1>
+              <a class="profile__info-edit-btn">
+                <img
+                  class="button-image"
+                  src="./images/edit_button.png"
+                  alt="boton para editar info de perfil"
+                />
+              </a>
+              <p class="profile__info-title">Explorer</p>
+            </div>
+            <button class="profile__add-btn">+</button>
+          </div>
+        </section>
+
+        <section class="elements">
+          <!-- element 1 -->
+
+            <img
+              src="./images/card_image_1.jpg"
+              alt="valle de yosemite"
+              class="element__image"
+            />
+
+            <h2 class="element__title">Valle de Yosemite</h2>
+            <div class="element__like"></div>
+          </div>
+          <!-- element 2 -->
+
+            <img
+              src="images/card_image_2.png"
+              alt="Lago Louise"
+              class="element__image"
+            />
+
+            <h2 class="element__title">Lago Louise</h2>
+            <div class="element__like"></div>
+          </div>
+          <!-- element 3 -->
+
+            <img
+              src="./images/card_image_3.png"
+              alt="imagen de Montañas Calvas"
+              class="element__image"
+            />
+
+            <h2 class="element__title">Montañas Calvas</h2>
+            <div class="element__like"></div>
+          </div>
+          <!-- element 4 -->
+
+            <img
+              src="./images/card_image_4.png"
+              alt="imagen de latemar"
+              class="element__image"
+            />
+
+            <h2 class="element__title">Latemar</h2>
+            <div class="element__like"></div>
+          </div>
+          <!-- element 5 -->
+
+            <img
+              src="./images/card_image_5.png"
+              alt="imagen de parque nacional de Vanoise"
+              class="element__image"
+            />
+
+            <h2 class="element__title">National Park of Vanoise</h2>
+            <div class="element__like"></div>
+          </div>
+          <!-- element 6 -->
+
+            <img
+              src="./images/card_image_6.png"
+              alt="lago di Braies"
+              class="element__image"
+            />
+
+            <h2 class="element__title">Lago di Braies</h2>
+            <div class="element__like"></div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Modal Edit Profile -->
+      <div class="popup" id="popupForm">
+        <div class="popup__container">
+          <button class="popup__close-btn">
+            <span class="close-icon" aria-hidden="true">×</span></button
+          >s
+          <div>
+            <h2 class="popup__title">Editar perfil</h2>
+            <form class="popup__form">
+              <input
+                type="text"
+                class="popup__input profile__info-name"
+                id="name-input"
+                name="name"
+                placeholder="Nombre"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="form__input-error name-input-error">
+                Por favor, rellena este campo.
+              </span>
+
+              <input
+                type="text"
+                class="popup__input profile__input-job"
+                id="job-input"
+                name="about"
+                placeholder="Acerca de mí"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="form__input-error job-input-error">
+                Por favor, rellena este campo.
+              </span>
+              <button
+                type="submit"
+                class="popup__submit popup__button_disabled"
+              >
+                Guardar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p class="footer__text">2025 Around The U.S.</p>
+      </footer>
+    </div>
+    <script src="scripts/index.js" type="module"></script>
+    <script src="scripts/validate.js" type="module"></script>
+  </body>
+</html>
