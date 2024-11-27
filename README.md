@@ -14,4 +14,4 @@ Proyecto con diseño web responsivo. Para publicar, dar like, modificar tu usuar
 
 ## Link Github pages
 
-https://alejandrozg11.github.io/web_project_homeland/
+https://alejandrozg11.github.io/web_project_around/
