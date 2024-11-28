@@ -44,7 +44,7 @@ function toggleButtonState(inputList, buttonElement) {
 
 function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  const buttonElement = formElement.querySelector(".popup__submit");
+  const buttonElement = formElement.querySelector(".popup__button");
   toggleButtonState(inputList, buttonElement);
 
   inputList.forEach((inputElement) => {
@@ -67,7 +67,7 @@ function enableValidation() {
 
 function validateFormOnOpen(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  const buttonElement = formElement.querySelector(".popup__submit");
+  const buttonElement = formElement.querySelector(".popup__button");
   inputList.forEach((inputElement) => {
     checkInputValidity(formElement, inputElement);
   });

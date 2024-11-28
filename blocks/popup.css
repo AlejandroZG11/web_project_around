@@ -56,7 +56,7 @@
   margin-bottom: 10px;
 }
 
-.popup__submit {
+.popup__button {
   border: 1px solid #000;
   max-width: 358px;
   height: 50px;
@@ -66,7 +66,7 @@
   width: 100%;
 }
 
-.popup__submit:hover {
+.popup__button:hover {
   border: 1px solid rgba(0, 0, 0, 0.8);
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
@@ -109,13 +109,13 @@
   border-bottom: 1px solid #ff0000;
 }
 
-.form__input-error {
+.popup__form-input-error {
   color: #ff0000;
   font-size: 0.7rem;
   display: none;
 }
 
-.form__input-error_active {
+.popup__form-input-error_active {
   display: block;
 }
 
