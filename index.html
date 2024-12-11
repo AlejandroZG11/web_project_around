@@ -56,6 +56,14 @@
         <section class="elements">
           <!-- element 1 -->
           <div class="element">
+            <button class="element__trash" type="button">
+              <img
+                class="trash-bin"
+                src="./images/Trash.svg"
+                alt="trash icon"
+              />
+            </button>
+
             <img
               src="./images/card_image_1.jpg"
               alt="valle de yosemite"
@@ -67,6 +75,14 @@
           </div>
           <!-- element 2 -->
           <div class="element">
+            <button class="element__trash" type="button">
+              <img
+                class="trash-bin"
+                src="./images/Trash.svg"
+                alt="trash icon"
+              />
+            </button>
+
             <img
               src="images/card_image_2.png"
               alt="Lago Louise"
@@ -78,6 +94,14 @@
           </div>
           <!-- element 3 -->
           <div class="element">
+            <button class="element__trash" type="button">
+              <img
+                class="trash-bin"
+                src="./images/Trash.svg"
+                alt="trash icon"
+              />
+            </button>
+
             <img
               src="./images/card_image_3.png"
               alt="imagen de Montañas Calvas"
@@ -89,6 +113,14 @@
           </div>
           <!-- element 4 -->
           <div class="element">
+            <button class="element__trash" type="button">
+              <img
+                class="trash-bin"
+                src="./images/Trash.svg"
+                alt="trash icon"
+              />
+            </button>
+
             <img
               src="./images/card_image_4.png"
               alt="imagen de latemar"
@@ -100,6 +132,14 @@
           </div>
           <!-- element 5 -->
           <div class="element">
+            <button class="element__trash" type="button">
+              <img
+                class="trash-bin"
+                src="./images/Trash.svg"
+                alt="trash icon"
+              />
+            </button>
+
             <img
               src="./images/card_image_5.png"
               alt="imagen de parque nacional de Vanoise"
@@ -111,6 +151,14 @@
           </div>
           <!-- element 6 -->
           <div class="element">
+            <button class="element__trash" type="button">
+              <img
+                class="trash-bin"
+                src="./images/Trash.svg"
+                alt="trash icon"
+              />
+            </button>
+
             <img
               src="./images/card_image_6.png"
               alt="lago di Braies"
@@ -167,6 +215,61 @@
               </button>
             </form>
           </div>
+        </div>
+      </div>
+
+      <!-- Modal Edit Cards -->
+      <div class="popup" id="addCardPopup">
+        <div class="popup__container">
+          <button class="popup__close-btn">
+            <span class="close-icon" aria-hidden="true">×</span>
+          </button>
+          <div>
+            <h2 class="popup__title">Nuevo Lugar</h2>
+            <form class="popup__form">
+              <input
+                type="text"
+                class="popup__input"
+                id="place__title-input"
+                name="title"
+                placeholder="Título"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="popup__form-input-error place__title-input-error">
+                Por favor, rellena este campo.
+              </span>
+
+              <input
+                type="url"
+                class="popup__input"
+                id="place__link-input"
+                name="link"
+                placeholder="Enlace a la imagen"
+                required
+              />
+              <span class="popup__form-input-error place__link-input-error">
+                Por favor, rellena este campo.
+              </span>
+              <button
+                type="submit"
+                class="popup__button popup__button_disabled"
+              >
+                Crear
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup" id="images-card">
+        <div class="popup__container-card">
+          <button class="popup__close-btn">
+            <span class="close-icon" aria-hidden="true">x</span>
+          </button>
+          <img class="popup__image-container" alt="." src="." />
+          <h3 class="popup__image-title">vacio</h3>
         </div>
       </div>
 

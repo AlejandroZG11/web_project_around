@@ -5,10 +5,6 @@
   display: grid;
   grid-gap: 15px;
   grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
-  /* grid-template-areas;
-    ''
-    ''
-    ; */
 }
 
 .element {
@@ -60,4 +56,28 @@
 
 .element__like:active {
   opacity: 1;
+}
+
+.element__like.active {
+  background-image: url(../images/heart_active.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 21px;
+  height: 19px;
+}
+
+.element__trash {
+  border: none;
+  height: 18px;
+  width: 19px;
+  background-color: transparent;
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 5px;
+}
+
+.trash-bin {
+  height: 100%;
+  width: 100%;
 }
