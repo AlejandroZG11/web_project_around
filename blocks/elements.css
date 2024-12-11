@@ -68,8 +68,8 @@
 
 .element__trash {
   border: none;
-  height: 18px;
-  width: 19px;
+  height: 30px;
+  width: 30px;
   background-color: transparent;
   position: absolute;
   cursor: pointer;

@@ -146,8 +146,9 @@
 }
 .popup__image-container {
   position: relative;
-  max-width: 75vw;
-  max-height: 75vh;
+  max-width: 90%;
+  max-height: 80%;
+  object-fit: contain;
 }
 .popup__image-title {
   font-family: Inter;
