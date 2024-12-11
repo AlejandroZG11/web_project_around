@@ -95,7 +95,7 @@ function createCard(title, imageLink) {
 
   cardElement.innerHTML = `
     <button class="element__trash" type="button">
-      <img class="trash-bin" src="../images/trash-bin.svg" alt="icono de basura">
+      <img class="trash-bin" src="./images/Trash.svg" alt="trash icon">
     </button>
     <img src="${imageLink}" alt="${title}" class="element__image">
     <h2 class="element__title">${title}</h2>
