@@ -106,13 +106,13 @@
 }
 
 .popup__input_type_error {
-  border-bottom: 1px solid #ff0000;
+  border-bottom: 2px solid #ff0000;
 }
 
 .popup__form-input-error {
   color: #ff0000;
   font-size: 0.7rem;
-  display: none;
+  display: block;
 }
 
 .popup__form-input-error_active {
@@ -147,8 +147,8 @@
 }
 
 .popup__image-container {
-  max-width: 75vw;
-  max-height: 75vh;
+  width: 75vw;
+  height: 75vh;
   width: auto;
   display: block;
 }
