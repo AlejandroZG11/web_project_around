@@ -1,12 +1,10 @@
-.page {
-  margin: auto;
-  font-family: "Inter", sans-serif;
-  background-color: #000;
-  color: white;
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
 }
 
-@media (max-width: 320px) {
-  .page {
-    width: 100%;
-  }
+.page {
+  background-color: #000000;
 }

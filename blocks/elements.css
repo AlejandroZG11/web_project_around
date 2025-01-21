@@ -1,86 +1,117 @@
-.elements {
-  padding-top: 51px;
+.elements__container {
   max-width: 880px;
-  margin-inline: auto;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  margin: 0 auto;
   display: grid;
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 17px;
+  grid-row-gap: 20px;
 }
 
 .element {
-  max-width: 282px;
+  background-color: #ffffff;
+  color: #000000;
   height: 361px;
+  max-width: 282px;
+  width: 100%;
   border-radius: 10px;
-  overflow: hidden;
-  background-color: white;
-  color: black;
-  width: 95%;
-  margin-inline: auto;
   position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0px;
 }
 
-.element__image {
-  width: 282px;
+.element__photo-trash {
+  background-image: url("../images/Trash.svg");
+  height: 19.3px;
+  width: 18px;
+  background-size: contain;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+  background-color: transparent;
+}
+
+.element__photo-trash:hover {
+  opacity: 0.6;
+}
+
+.element__photo-link {
+  width: 100%;
   height: 282px;
-  border-radius: 10px 10px 0 0;
-  display: block;
   object-fit: cover;
-  background-color: #000;
 }
 
-.element__title {
+.element__photo-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.element__photo-name {
   font-family: Inter;
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 900;
-  line-height: 1.5;
+  line-height: 29.05px;
   text-align: left;
-  margin-left: 15px;
-  margin-top: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  width: 220px;
+  flex-grow: 1;
 }
 
-.element__like {
-  background-image: url(../images/heart_icon.png);
-  background-size: contain;
+.element__heart-button {
   width: 21px;
   height: 19px;
-  position: relative;
-  cursor: pointer;
-  bottom: 45px;
-  left: 239px;
-}
-
-.element__like:hover {
-  opacity: 0.7;
-}
-
-.element__like:active {
-  opacity: 1;
-}
-
-.element__like.active {
-  background-image: url(../images/heart_active.png);
+  background-image: url("../images/heart_icon.png");
+  background-position: center;
   background-size: contain;
-  background-repeat: no-repeat;
-  width: 21px;
-  height: 19px;
-}
-
-.element__trash {
   border: none;
-  height: 30px;
-  width: 30px;
-  background-color: transparent;
-  position: absolute;
   cursor: pointer;
-  right: 0;
-  top: 5px;
+  flex-shrink: 0;
+  background-color: #ffffff;
 }
 
-.trash-bin {
-  height: 100%;
-  width: 100%;
+.element__heart-button:hover {
+  opacity: 0.5;
+}
+
+.element__heart-button_active {
+  background: url("../images/heart_active.png");
+  background-position: center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  width: 21px;
+  height: 19px;
+}
+
+@media screen and (max-width: 320px) {
+  .elements__container {
+    grid-template-columns: repeat(1, 1fr);
+    padding-top: 36px;
+    width: 100%;
+  }
+
+  .element {
+    max-width: 282px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .element__photo-name {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 29.05px;
+    text-align: left;
+  }
 }

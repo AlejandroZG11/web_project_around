@@ -20,256 +20,141 @@
   <body>
     <div class="page">
       <header class="header">
-        <div class="header__logo">
-          <img
-            src="./images/logo.png"
-            alt="Logo Around U.S"
-            class="header__logo-img"
-          />
-        </div>
+        <img
+          class="header__logo"
+          src="./images/logo.png"
+          alt="Logo de Around The U.S."
+        />
+        <img
+          class="header__line"
+          src="./images/header_line.png"
+          alt="Línea blanca separadora"
+        />
       </header>
 
-      <main class="content">
-        <!-- Perfil -->
-        <section class="profile">
-          <div class="profile__container">
-            <img
-              src="./images/profile.jpg"
-              alt="foto de perfil"
-              class="profile__avatar"
-            />
-            <div class="profile__info">
-              <h1 class="profile__info-header">Alejandro Zuluaga</h1>
-              <a class="profile__info-edit-btn">
-                <img
-                  class="button-image"
-                  src="./images/edit_button.png"
-                  alt="boton para editar info de perfil"
-                />
-              </a>
-              <p class="profile__info-title">Explorer</p>
-            </div>
-            <button class="profile__add-btn">+</button>
+      <!-- Perfil -->
+      <section class="profile">
+        <img
+          class="profile__avatar"
+          src="./images/profile.jpg"
+          alt="foto de perfil"
+        />
+        <div class="profile__contents">
+          <div class="profile__info">
+            <h1 class="profile__info-name">Alejandro Zuluaga</h1>
+            <p class="profile__info-description">Explorer</p>
           </div>
-        </section>
-
-        <section class="elements">
-          <!-- element 1 -->
-          <div class="element">
-            <button class="element__trash" type="button">
-              <img
-                class="trash-bin"
-                src="./images/Trash.svg"
-                alt="trash icon"
-              />
-            </button>
-
-            <img
-              src="./images/card_image_1.jpg"
-              alt="valle de yosemite"
-              class="element__image"
-            />
-
-            <h2 class="element__title">Valle de Yosemite</h2>
-            <div class="element__like"></div>
-          </div>
-          <!-- element 2 -->
-          <div class="element">
-            <button class="element__trash" type="button">
-              <img
-                class="trash-bin"
-                src="./images/Trash.svg"
-                alt="trash icon"
-              />
-            </button>
-
-            <img
-              src="images/card_image_2.png"
-              alt="Lago Louise"
-              class="element__image"
-            />
-
-            <h2 class="element__title">Lago Louise</h2>
-            <div class="element__like"></div>
-          </div>
-          <!-- element 3 -->
-          <div class="element">
-            <button class="element__trash" type="button">
-              <img
-                class="trash-bin"
-                src="./images/Trash.svg"
-                alt="trash icon"
-              />
-            </button>
-
-            <img
-              src="./images/card_image_3.png"
-              alt="imagen de Montañas Calvas"
-              class="element__image"
-            />
-
-            <h2 class="element__title">Montañas Calvas</h2>
-            <div class="element__like"></div>
-          </div>
-          <!-- element 4 -->
-          <div class="element">
-            <button class="element__trash" type="button">
-              <img
-                class="trash-bin"
-                src="./images/Trash.svg"
-                alt="trash icon"
-              />
-            </button>
-
-            <img
-              src="./images/card_image_4.png"
-              alt="imagen de latemar"
-              class="element__image"
-            />
-
-            <h2 class="element__title">Latemar</h2>
-            <div class="element__like"></div>
-          </div>
-          <!-- element 5 -->
-          <div class="element">
-            <button class="element__trash" type="button">
-              <img
-                class="trash-bin"
-                src="./images/Trash.svg"
-                alt="trash icon"
-              />
-            </button>
-
-            <img
-              src="./images/card_image_5.png"
-              alt="imagen de parque nacional de Vanoise"
-              class="element__image"
-            />
-
-            <h2 class="element__title">Vanoise National Park</h2>
-            <div class="element__like"></div>
-          </div>
-          <!-- element 6 -->
-          <div class="element">
-            <button class="element__trash" type="button">
-              <img
-                class="trash-bin"
-                src="./images/Trash.svg"
-                alt="trash icon"
-              />
-            </button>
-
-            <img
-              src="./images/card_image_6.png"
-              alt="lago di Braies"
-              class="element__image"
-            />
-
-            <h2 class="element__title">Lago di Braies</h2>
-            <div class="element__like"></div>
-          </div>
-        </section>
-      </main>
-
-      <!-- Modal Edit Profile -->
-      <div class="popup" id="popupForm">
-        <div class="popup__container">
-          <button class="popup__close-btn">
-            <span class="close-icon" aria-hidden="true">×</span>
-          </button>
-          <div>
-            <h2 class="popup__title">Editar perfil</h2>
-            <form class="popup__form">
-              <input
-                type="text"
-                class="popup__input profile__info-name"
-                id="name-input"
-                name="name"
-                placeholder="Nombre"
-                minlength="2"
-                maxlength="40"
-                required
-              />
-              <span class="form-input-error name-input-error">
-                Por favor, rellena este campo.
-              </span>
-
-              <input
-                type="text"
-                class="popup__input profile__input-job"
-                id="job-input"
-                name="about"
-                placeholder="Acerca de mí"
-                minlength="2"
-                maxlength="200"
-                required
-              />
-              <span class="form-input-error job-input-error">
-                Por favor, rellena este campo.
-              </span>
-              <button
-                type="submit"
-                class="popup__submit popup__button_disabled"
-              >
-                Guardar
-              </button>
-            </form>
-          </div>
+          <button type="submit" class="profile__edit-button"></button>
         </div>
+        <button
+          type="submit"
+          class="profile__add-button"
+          id="profile-add-button"
+        ></button>
+      </section>
+
+      <main class="elements">
+        <div class="elements__container" id="elements-container"></div>
+        <!--template para elements card-->
+        <template class="template__card" id="template-card">
+          <div class="element">
+            <button class="element__photo-trash"></button>
+            <img class="element__photo-link" src="" alt="" />
+            <div class="element__photo-info">
+              <p class="element__photo-name"></p>
+              <button
+                class="element__heart-button"
+                id="element-heart-button"
+              ></button>
+            </div>
+          </div>
+        </template>
+      </main>
+      <!-- Modal Edit Profile -->
+      <div class="popup" id="popup-profile">
+        <div class="form popup__overlay"></div>
+        <form class="form popup__form" id="profile-form">
+          <fieldset class="popup__form">
+            <button
+              class="popup__close-button"
+              type="button"
+              id="close-profile-popup"
+            ></button>
+            <h2 class="popup__title">Editar perfil</h2>
+            <input
+              class="popup__input"
+              type="text"
+              name="name"
+              id="input-name"
+              placeholder="Nombre"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="input-error input-name-error"></span>
+            <input
+              class="popup__input"
+              type="text"
+              name="about-me"
+              id="input-about"
+              placeholder="Acerca de mí"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="input-error input-about-error"></span>
+            <button class="form__submit" type="submit">Guardar</button>
+          </fieldset>
+        </form>
       </div>
 
       <!-- Modal Edit Cards -->
-      <div class="popup" id="addCardPopup">
-        <div class="popup__container">
-          <button class="popup__close-btn">
-            <span class="close-icon" aria-hidden="true">x</span>
-          </button>
-          <div>
-            <h2 class="popup__title">Nuevo Lugar</h2>
-            <form class="popup__form" novalidate>
-              <input
-                type="text"
-                class="popup__input"
-                id="place__title-input"
-                name="title"
-                placeholder="Título"
-                minlength="2"
-                maxlength="40"
-                required
-              />
-              <span class="form-input-error place__title-input-error">
-                Por favor, rellena este campo.
-              </span>
-
-              <input
-                type="url"
-                class="popup__input"
-                id="place__link-input"
-                name="link"
-                placeholder="Enlace a la imagen"
-                required
-              />
-              <span class="form-input-error place__link-input-error">
-                Por favor, rellena este campo.
-              </span>
-              <button
-                type="submit"
-                class="popup__submit popup__button_disabled"
-              >
-                Crear
-              </button>
-            </form>
-          </div>
-        </div>
+      <div class="popup" id="popup-cards">
+        <div class="form popup__overlay"></div>
+        <form class="form popup__form" id="cards-form">
+          <fieldset class="popup__form">
+            <button
+              class="popup__close-button"
+              type="button"
+              id="close-cards-popup"
+            ></button>
+            <h2 class="popup__title">Nuevo lugar</h2>
+            <input
+              class="popup__input"
+              type="text"
+              name="title"
+              id="input-title"
+              placeholder="Título"
+              minlength="2"
+              maxlength="30"
+              required
+            />
+            <span class="input-error input-title-error"></span>
+            <input
+              class="popup__input"
+              type="url"
+              name="link"
+              id="input-link"
+              placeholder="Enlace a la imagen"
+              required
+            />
+            <span class="input-error input-link-error"></span>
+            <button class="form__submit" type="submit">Crear</button>
+          </fieldset>
+        </form>
       </div>
 
-      <div class="popup" id="images-card">
-        <div class="popup__container-card">
-          <button class="popup__close-btn">
-            <span class="close-icon" aria-hidden="true">x</span>
-          </button>
-          <img class="popup__image-container" alt=" " src=" " />
-          <h3 class="popup__image-title">vacio</h3>
+      <div class="popup" id="popup-size-card">
+        <div class="popup popup__overlay"></div>
+        <div class="popup__photo-content">
+          <img
+            class="popup__close-card"
+            src="./images/container__close-icon.svg"
+            alt="boton para cerrar size-up popup"
+            id="popup-close-card"
+          />
+          <img src="" alt="" class="popup__photo-link" id="popup-image" />
+          <p class="popup__photo-name" id="popup-caption"></p>
         </div>
       </div>
 

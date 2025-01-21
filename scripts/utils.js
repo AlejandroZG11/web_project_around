@@ -1,49 +1,32 @@
-import { FormValidator } from "./FormValidator.js";
-
-function openPopup(popup) {
-  if (!popup) {
-    console.error("Popup no encontrado");
-    return;
-  }
-  popup.classList.add("popup_show");
-  document.addEventListener("keydown", handleEscClose);
-
-  if (popup.id === "popupForm") {
-    const formElement = popup.querySelector(".popup__form");
-    const formValidator = new FormValidator(formElement);
-    formValidator.validateFormOnOpen();
-  }
+//FUNCIONES GENERALES
+//abrir cualquier popup
+export function openPopup(popup) {
+  popup.classList.add("popup__show");
+  document.addEventListener("keydown", closePopupWithEscape);
 }
 
-function closePopup(popup) {
-  popup.classList.remove("popup_show");
-  document.removeEventListener("keydown", handleEscClose);
+//cerrar cualquier popup
+export function closePopup(popup) {
+  popup.classList.remove("popup__show");
+  document.removeEventListener("keydown", closePopupWithEscape);
 }
 
-function handleEscClose(evt) {
-  if (evt.key === "Escape") {
-    const activePopup = document.querySelector(".popup_show");
-    if (activePopup) closePopup(activePopup);
+//cerrar popup con overlay click
+export function closePopupWithOverlayClick(event) {
+  if (event.target.classList.contains("popup__overlay")) {
+    const openPopup = document.querySelector(".popup__show");
+    if (openPopup) {
+      closePopup(openPopup);
+    }
   }
 }
 
-function closePopupOnOverlay(evt) {
-  if (evt.target.classList.contains("popup_show")) {
-    closePopup(evt.target);
+//cerrar popup con esc key
+export function closePopupWithEscape(event) {
+  if (event.key === "Escape") {
+    const openPopup = document.querySelector(".popup__show");
+    if (openPopup) {
+      closePopup(openPopup);
+    }
   }
 }
-
-function closePopupOnEsc(evt) {
-  if (evt.key === "Escape") {
-    const activePopup = document.querySelector(".popup_show");
-    if (activePopup) closePopup(activePopup);
-  }
-}
-
-export {
-  openPopup,
-  closePopup,
-  handleEscClose,
-  closePopupOnOverlay,
-  closePopupOnEsc,
-};
