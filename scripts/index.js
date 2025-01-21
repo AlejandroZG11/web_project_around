@@ -1,58 +1,46 @@
 import { FormValidator } from "./FormValidator.js";
-import { Card } from "./card.js";
+import { Card } from "./Card.js";
 import { closePopup } from "./utils.js";
-
 const popupForm = document.querySelector("#popupForm");
 const addCardPopup = document.querySelector("#addCardPopup");
 const imagesCardPopup = document.querySelector("#images-card");
-
 const formValidatorPopup = new FormValidator(popupForm);
 const formValidatorAddCard = new FormValidator(addCardPopup);
-
 formValidatorPopup.enableValidation();
 formValidatorAddCard.enableValidation();
-
 const editButton = document.querySelector(".profile__info-edit-btn");
 const nameInput = document.querySelector("#name-input");
 const jobInput = document.querySelector("#job-input");
-
 const addButton = document.querySelector(".profile__add-btn");
 const titleInput = document.querySelector("#place__title-input");
 const linkInput = document.querySelector("#place__link-input");
-
-const userInfo = new UserInfo({
+const userInfo = new userInfo({
   nameSelector: ".profile__info-header",
   jobSelector: ".profile__info-title",
 });
-
-const editProfilePopup = new PopupWithForm(popupForm, (formData) => {
+const editProfilePopup = new popupForm(popupForm, (formData) => {
   const { name, job } = formData;
   userInfo.setUserInfo({ name, job });
 });
-
 editButton.addEventListener("click", () => {
   editProfilePopup.open();
   nameInput.value = userInfo.getUserInfo().name;
   jobInput.value = userInfo.getUserInfo().job;
 });
-
 const cardsContainer = document.querySelector(".elements");
 const cardsSection = new Section(
   [],
   (item) => item.createCard(),
   cardsContainer
 );
-
-const addCardPopupInstance = new PopupWithForm(addCardPopup, (formData) => {
+const addCardPopupInstance = new popupForm(addCardPopup, (formData) => {
   const { title, link } = formData;
   const newCard = new Card(title, link);
   cardsSection.addItem(newCard);
 });
-
 addButton.addEventListener("click", () => {
   addCardPopupInstance.open();
 });
-
 addCardPopup
   .querySelector(".popup__form")
   .addEventListener("submit", function (evt) {
@@ -64,7 +52,6 @@ addCardPopup
     document.querySelector(".elements").prepend(cardElement);
     closePopup(addCardPopup);
   });
-
 popupForm
   .querySelector(".popup__form")
   .addEventListener("submit", function (evt) {
@@ -75,7 +62,6 @@ popupForm
     profileJob.textContent = jobInput.value;
     closePopup(popupForm);
   });
-
 // Event delegation for closing popups
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("popup_show")) {
@@ -85,7 +71,6 @@ document.addEventListener("click", (event) => {
     }
   }
 });
-
 // Handle Esc key for closing popups
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
@@ -95,9 +80,7 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
-
 const imagesCardPopupInstance = new PopupWithImage(imagesCardPopup);
-
 document.querySelectorAll(".element__image").forEach((image) => {
   image.addEventListener("click", function () {
     const imageSrc = image.src;
@@ -106,7 +89,6 @@ document.querySelectorAll(".element__image").forEach((image) => {
     imagesCardPopupInstance.open(imageSrc, imageAlt, imageTitle);
   });
 });
-
 // Corrected trash button event handling
 document.querySelectorAll(".element").forEach((element) => {
   const trashButton = element.querySelector(".element__trash");
@@ -114,25 +96,21 @@ document.querySelectorAll(".element").forEach((element) => {
     element.remove();
   });
 });
-
 //trash and like handling
 // const trashButtons = document.querySelectorAll('.element__trash');
 const likeButtons = document.querySelectorAll(".element__like");
-
 // trashButtons.forEach(button => {
 //   button.addEventListener('click', (e) => {
 //     const element = e.target.closest('.element');
 //     element.remove();
 //   });
 // });
-
 likeButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
     const likeButton = e.currentTarget;
     handleLikeButton(likeButton);
   });
 });
-
 function handleLikeButton(likeButton) {
   if (likeButton.classList.contains("active")) {
     likeButton.classList.remove("active");

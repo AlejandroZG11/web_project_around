@@ -190,7 +190,7 @@
                 maxlength="40"
                 required
               />
-              <span class="popup__form-input-error name-input-error">
+              <span class="form-input-error name-input-error">
                 Por favor, rellena este campo.
               </span>
 
@@ -204,12 +204,12 @@
                 maxlength="200"
                 required
               />
-              <span class="popup__form-input-error job-input-error">
+              <span class="form-input-error job-input-error">
                 Por favor, rellena este campo.
               </span>
               <button
                 type="submit"
-                class="popup__button popup__button_disabled"
+                class="popup__submit popup__button_disabled"
               >
                 Guardar
               </button>
@@ -226,7 +226,7 @@
           </button>
           <div>
             <h2 class="popup__title">Nuevo Lugar</h2>
-            <form class="popup__form">
+            <form class="popup__form" novalidate>
               <input
                 type="text"
                 class="popup__input"
@@ -237,7 +237,7 @@
                 maxlength="40"
                 required
               />
-              <span class="popup__form-input-error place__title-input-error">
+              <span class="form-input-error place__title-input-error">
                 Por favor, rellena este campo.
               </span>
 
@@ -249,12 +249,12 @@
                 placeholder="Enlace a la imagen"
                 required
               />
-              <span class="popup__form-input-error place__link-input-error">
+              <span class="form-input-error place__link-input-error">
                 Por favor, rellena este campo.
               </span>
               <button
                 type="submit"
-                class="popup__button popup__button_disabled"
+                class="popup__submit popup__button_disabled"
               >
                 Crear
               </button>
@@ -278,6 +278,5 @@
       </footer>
     </div>
     <script src="./scripts/index.js" type="module"></script>
-    <script src="./scripts/validate.js" type="module"></script>
   </body>
 </html>
