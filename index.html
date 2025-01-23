@@ -41,15 +41,19 @@
         />
         <div class="profile__contents">
           <div class="profile__info">
-            <h1 class="profile__info-name">Alejandro Zuluaga</h1>
-            <p class="profile__info-description">Explorer</p>
+            <h1 class="profile__info-name" id="profile-name">
+              Alejandro Zuluaga
+            </h1>
+            <p class="profile__info-description" id="profile-description">
+              Explorer
+            </p>
           </div>
           <button type="submit" class="profile__edit-button"></button>
         </div>
         <button
           type="submit"
           class="profile__add-button"
-          id="profile-add-button"
+          id="profile__add-button"
         ></button>
       </section>
 
@@ -85,7 +89,7 @@
               class="popup__input"
               type="text"
               name="name"
-              id="input-name"
+              id="name"
               placeholder="Nombre"
               minlength="2"
               maxlength="40"
@@ -96,7 +100,7 @@
               class="popup__input"
               type="text"
               name="about-me"
-              id="input-about"
+              id="about-me"
               placeholder="Acerca de mí"
               minlength="2"
               maxlength="200"
@@ -123,7 +127,7 @@
               class="popup__input"
               type="text"
               name="title"
-              id="input-title"
+              id="title"
               placeholder="Título"
               minlength="2"
               maxlength="30"
@@ -134,7 +138,7 @@
               class="popup__input"
               type="url"
               name="link"
-              id="input-link"
+              id="image-url"
               placeholder="Enlace a la imagen"
               required
             />

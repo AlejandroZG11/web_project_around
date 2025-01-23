@@ -35,6 +35,8 @@
   font-weight: 500;
   line-height: 48px;
   text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .profile__info-description {
@@ -43,6 +45,8 @@
   font-weight: 400;
   line-height: 21.78px;
   text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .profile__edit-button {

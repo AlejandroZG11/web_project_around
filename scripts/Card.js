@@ -1,4 +1,4 @@
-//constructor de card
+// Card.js: Actualización para cerrar el popup con la "X"
 export default class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
@@ -12,12 +12,10 @@ export default class Card {
     this._titleElement = this._element.querySelector(".element__photo-name");
     this._likeButton = this._element.querySelector(".element__heart-button");
     this._trashButton = this._element.querySelector(".element__photo-trash");
-    //nueva funcion del constructor
     this._handleCardClick = handleCardClick;
     this._isEscapeListenerAdded = false;
   }
 
-  //funcion para llamar al template
   _getTemplate() {
     const cardTemplate = document
       .querySelector(this._templateSelector)
@@ -27,43 +25,30 @@ export default class Card {
   }
 
   _setEventListeners() {
-    //like button
     if (this._likeButton) {
       this._likeButton.addEventListener("click", () => this._toggleLike());
-    } else {
-      console.error("Botón de me gusta no se encontró en la tarjeta.");
     }
 
-    //trash button
     if (this._trashButton) {
       this._trashButton.addEventListener("click", () => this._deleteCard());
-    } else {
-      console.error("Botón de basura no se encontró en la tarjeta.");
     }
 
-    //card size up
     if (this._imageElement) {
-      //handleCardClick para card size up
       this._imageElement.addEventListener("click", () =>
         this._handleCardSizeup()
       );
-    } else {
-      console.error("La imagen no se encontró en la tarjeta.");
     }
   }
 
-  //funcion para estado de like button
   _toggleLike() {
     this._likeButton.classList.toggle("element__heart-button_active");
   }
 
-  //funcion para eliminar card
   _deleteCard() {
     this._element.remove();
     this._element = null;
   }
 
-  //funcion para generar card
   generateCard() {
     this._imageElement.src = this._link;
     this._imageElement.alt = this._name;
@@ -74,7 +59,6 @@ export default class Card {
     return this._element;
   }
 
-  //funcion card sizeup
   _handleCardSizeup() {
     const popupImage = document.querySelector("#popup-image");
     const popupCaption = document.querySelector("#popup-caption");
@@ -86,6 +70,15 @@ export default class Card {
       popupCaption.textContent = this._name;
 
       imagePopup.classList.add("popup__show");
+
+      const closeButton = imagePopup.querySelector("#popup-close-card");
+      if (closeButton) {
+        closeButton.addEventListener("click", () => {
+          imagePopup.classList.remove("popup__show");
+          document.removeEventListener("keydown", this._handleEscape);
+          this._isEscapeListenerAdded = false;
+        });
+      }
 
       if (!this._isEscapeListenerAdded) {
         this._handleEscape = (event) => {

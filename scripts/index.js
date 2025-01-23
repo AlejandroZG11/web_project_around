@@ -1,33 +1,28 @@
-//IMPORTACIONES
+// index.js: Actualización de selectores y eventos
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import { openPopup, closePopup, closePopupWithOverlayClick } from "./utils.js";
 
-//variables editar perfil
-const profileButton = document.querySelector(".profile__info-edit-btn");
-const closeButton = document.querySelector(".popup__close-button");
+// Variables editar perfil
+const profileButton = document.querySelector(".profile__edit-button");
+const closeProfileButton = document.querySelector("#close-profile-popup");
 const popupProfile = document.querySelector("#popup-profile");
-const profileName = document.querySelector(".profile__info-header");
-const profileAbout = document.querySelector(".profile__info-title");
-const inputName = document.querySelector("#input-name");
-const inputAbout = document.querySelector("#input-about");
+const profileName = document.querySelector("#profile-name");
+const profileAbout = document.querySelector("#profile-description");
+const inputName = document.querySelector("#name");
+const inputAbout = document.querySelector("#about-me");
 
-const addButton = document.querySelector("#profile-add-button");
-
-//variables cards
+// Variables añadir tarjetas
+const addButton = document.querySelector("#profile__add-button");
 const cardCloseButton = document.querySelector("#close-cards-popup");
 const popupCards = document.querySelector("#popup-cards");
+const inputCardTitle = document.querySelector("#title");
+const inputCardLink = document.querySelector("#image-url");
 
-//variables forms
-const formAddCard = document.querySelector("#cards-form");
-const profileForm = document.querySelector("#profile-form");
+// Contenedor de tarjetas
+const elementsContainer = document.querySelector("#elements-container");
 
-const inputCardTitle = document.querySelector("#input-title");
-const inputCardLink = document.querySelector("#input-link");
-
-const elementsContainer = document.querySelector(".elements__container");
-
-//variables validation
+// Configuración de validación
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -37,7 +32,7 @@ const validationConfig = {
   errorClass: ".form__error_show",
 };
 
-//cards iniciales
+// Tarjetas iniciales
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -67,75 +62,63 @@ const initialCards = [
 
 elementsContainer.innerHTML = "";
 
-//funcion con class card para agregar initial cards
+// Crear tarjetas iniciales
 initialCards.forEach((cardData) => {
   const card = new Card(cardData, "#template-card");
   const cardElement = card.generateCard();
   elementsContainer.append(cardElement);
 });
 
-//instancias FormValidator
+// Validación de formularios
 const profileFormValidator = new FormValidator(validationConfig, popupProfile);
-const addCardsFormValidator = new FormValidator(validationConfig, formAddCard);
+const addCardsFormValidator = new FormValidator(validationConfig, popupCards);
 profileFormValidator.enableValidation();
 addCardsFormValidator.enableValidation();
 
-//abrir editar perfil popup
-profileButton.addEventListener("click", function () {
-  inputName.textContent = profileName.value;
-  inputAbout.textContent = profileAbout.value;
+// Eventos para abrir y cerrar popups
+profileButton.addEventListener("click", () => {
+  inputName.value = profileName.textContent;
+  inputAbout.value = profileAbout.textContent;
   openPopup(popupProfile);
 });
 
-//cerrar editar perfil popup
-closeButton.addEventListener("click", function () {
+closeProfileButton.addEventListener("click", () => {
   closePopup(popupProfile);
 });
 
-//submit editar perfil
-profileForm.addEventListener("submit", function (evt) {
+popupProfile.addEventListener("submit", (evt) => {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
   closePopup(popupProfile);
 });
 
-//TARJETAS
-//funcion abrir agregar cards form
-addButton.addEventListener("click", function () {
+addButton.addEventListener("click", () => {
   openPopup(popupCards);
 });
 
-//funcion cerrar agregar cards form
-cardCloseButton.addEventListener("click", function () {
+cardCloseButton.addEventListener("click", () => {
   closePopup(popupCards);
 });
 
-//crear nueva card y agregar al container
-formAddCard.addEventListener("submit", (evt) => {
+popupCards.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  if (addCardsFormValidator._submitButton.disabled) {
-    return;
-  }
 
-  //nueva card
   const cardData = {
     name: inputCardTitle.value.trim(),
     link: inputCardLink.value.trim(),
   };
 
-  //funcion con class card para crear tarjeta
   const card = new Card(cardData, "#template-card");
   const cardElement = card.generateCard();
   elementsContainer.prepend(cardElement);
 
-  //eliminar input de campo de entrada y cerrar popup
   inputCardTitle.value = "";
   inputCardLink.value = "";
   closePopup(popupCards);
 });
 
-//cerrar popup con overlay
+// Cierre de popups con overlay
 const popups = document.querySelectorAll(".popup");
 popups.forEach((popup) => {
   popup.addEventListener("click", closePopupWithOverlayClick);
