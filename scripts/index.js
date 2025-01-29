@@ -1,28 +1,24 @@
-// index.js: Actualización de selectores y eventos
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import { openPopup, closePopup, closePopupWithOverlayClick } from "./utils.js";
+//IMPORTACIONES
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+import { PopupWithForm } from "./PopupWithForm.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { Section } from "./Section.js";
+import { UserInfo } from "./UserInfo.js";
+import { closePopupWithOverlayClick } from "./utils.js";
 
-// Variables editar perfil
+//variables editar perfil
 const profileButton = document.querySelector(".profile__edit-button");
-const closeProfileButton = document.querySelector("#close-profile-popup");
-const popupProfile = document.querySelector("#popup-profile");
-const profileName = document.querySelector("#profile-name");
-const profileAbout = document.querySelector("#profile-description");
-const inputName = document.querySelector("#name");
-const inputAbout = document.querySelector("#about-me");
+const inputName = document.querySelector("#input-name");
+const inputAbout = document.querySelector("#input-about");
 
-// Variables añadir tarjetas
-const addButton = document.querySelector("#profile__add-button");
-const cardCloseButton = document.querySelector("#close-cards-popup");
-const popupCards = document.querySelector("#popup-cards");
-const inputCardTitle = document.querySelector("#title");
-const inputCardLink = document.querySelector("#image-url");
+const addButton = document.querySelector(".profile__add-button");
 
-// Contenedor de tarjetas
-const elementsContainer = document.querySelector("#elements-container");
+//variables forms
+const formAddCard = document.querySelector("#cards-form");
+const profileForm = document.querySelector("#profile-form");
 
-// Configuración de validación
+//variables validation
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -32,7 +28,7 @@ const validationConfig = {
   errorClass: ".form__error_show",
 };
 
-// Tarjetas iniciales
+//cards iniciales
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -60,66 +56,88 @@ const initialCards = [
   },
 ];
 
-elementsContainer.innerHTML = "";
-
-// Crear tarjetas iniciales
-initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#template-card");
-  const cardElement = card.generateCard();
-  elementsContainer.append(cardElement);
-});
-
-// Validación de formularios
-const profileFormValidator = new FormValidator(validationConfig, popupProfile);
-const addCardsFormValidator = new FormValidator(validationConfig, popupCards);
+//instancias FormValidator
+const profileFormValidator = new FormValidator(validationConfig, profileForm);
+const addCardsFormValidator = new FormValidator(validationConfig, formAddCard);
 profileFormValidator.enableValidation();
 addCardsFormValidator.enableValidation();
 
-// Eventos para abrir y cerrar popups
+//function handleCardClick abre image size up
+function handleCardClick(name, link) {
+  popupWithImage.open({ link, name });
+}
+
+//PopupWithImage para visualizar card size up
+const popupWithImage = new PopupWithImage("#popup-size-card");
+
+//Section para cards
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const card = new Card(cardData, "#template-card", handleCardClick);
+      const cardElement = card.generateCard();
+      cardSection.addItems(cardElement);
+    },
+  },
+  ".elements__container"
+);
+cardSection.renderItems();
+
+//instancia de UserInfo clase
+const userInfo = new UserInfo({
+  nameSelector: "#profile-name",
+  aboutSelector: "#profile-description",
+});
+
+//instancia PopupWithForm para profile
+const popupProfileForm = new PopupWithForm("#popup-profile", (formData) => {
+  userInfo.setUserInfo({
+    name: formData.name,
+    about: formData["about-me"],
+  });
+  popupProfileForm.close();
+});
+
+//abrir editar perfil popup con datos existentes
 profileButton.addEventListener("click", () => {
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
-  openPopup(popupProfile);
+  console.log("Profile edit button click");
+  popupProfileForm.open();
+
+  const userData = userInfo.getUserInfo();
+  inputName.value = userData.name; //mensaje de error presente pero es funcional en el sitio
+  inputAbout.value = userData["about-me"];
+
+  //reestablecer submit button
+  profileFormValidator._toggleStateOfButton();
 });
 
-closeProfileButton.addEventListener("click", () => {
-  closePopup(popupProfile);
-});
-
-popupProfile.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  profileName.textContent = inputName.value;
-  profileAbout.textContent = inputAbout.value;
-  closePopup(popupProfile);
-});
-
+//abrir popup agregar card
 addButton.addEventListener("click", () => {
-  openPopup(popupCards);
+  addCardsFormValidator._toggleStateOfButton();
+  popupAddCardForm.open();
 });
 
-cardCloseButton.addEventListener("click", () => {
-  closePopup(popupCards);
-});
-
-popupCards.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-
+//PopupWithForm para add card form
+const popupAddCardForm = new PopupWithForm("#popup-cards", (formData) => {
   const cardData = {
-    name: inputCardTitle.value.trim(),
-    link: inputCardLink.value.trim(),
+    name: formData.title,
+    link: formData.link,
   };
 
-  const card = new Card(cardData, "#template-card");
-  const cardElement = card.generateCard();
-  elementsContainer.prepend(cardElement);
+  const card = new Card(cardData, "#template-card", handleCardClick);
 
-  inputCardTitle.value = "";
-  inputCardLink.value = "";
-  closePopup(popupCards);
+  const cardElement = card.generateCard();
+  cardSection.addItems(cardElement);
+  popupAddCardForm.close();
 });
 
-// Cierre de popups con overlay
+//cerrar popup con overlay
 const popups = document.querySelectorAll(".popup");
 popups.forEach((popup) => {
   popup.addEventListener("click", closePopupWithOverlayClick);
 });
+
+popupWithImage.setEventListeners();
+popupProfileForm.setEventListeners();
+popupAddCardForm.setEventListeners();

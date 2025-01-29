@@ -1,5 +1,5 @@
 // Card.js: Actualización para cerrar el popup con la "X"
-export default class Card {
+export class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;

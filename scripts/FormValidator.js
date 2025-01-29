@@ -1,4 +1,4 @@
-export default class FormValidator {
+export class FormValidator {
   constructor(config, formElement) {
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
@@ -42,7 +42,7 @@ export default class FormValidator {
   //mostrar error de input
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
+      `${inputElement.id}-error`
     );
     if (errorElement) {
       inputElement.classList.add(this._inputErrorClass);
