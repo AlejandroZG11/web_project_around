@@ -24,39 +24,47 @@ export class FormValidator {
     this._toggleStateOfButton();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(inputElement);
         this._toggleStateOfButton();
+        this._checkInputValidity(inputElement);
       });
     });
   }
 
+  // Reseteo de formulario
+  resetForm() {
+    this._inputList.forEach((input) => {
+      input.value = ""; // Limpiar todos los campos
+      this._hideInputError(input); // Ocultar cualquier error visual
+    });
+    this._toggleStateOfButton(); // Deshabilitar el botón de submit
+  }
+
   //check input para validez
-  _checkInputValidity = (inputElement) => {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
       this._hideInputError(inputElement);
     }
-  };
+  }
 
   //mostrar error de input
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(
-      `${inputElement.id}-error`
+      `#${inputElement.id}-error`
     );
     if (errorElement) {
       inputElement.classList.add(this._inputErrorClass);
       errorElement.textContent = errorMessage;
       errorElement.classList.add(this._errorClass);
     } else {
-      console.error(`No se encontró el elemento de error.`);
     }
   }
 
   //hide error de input
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
+      `#${inputElement.id}-error`
     );
     if (errorElement) {
       inputElement.classList.remove(this._inputErrorClass);

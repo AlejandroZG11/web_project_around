@@ -7,8 +7,8 @@ export class UserInfo {
   //método público que devuelve un objeto con información sobre el usuario
   getUserInfo() {
     return {
-      name: this._nameElement.textContent,
-      about: this._aboutElement.textContent,
+      name: this._nameElement.textContent.trim(),
+      about: this._aboutElement.textContent.trim(),
     };
   }
 

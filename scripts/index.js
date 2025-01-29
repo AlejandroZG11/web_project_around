@@ -9,8 +9,8 @@ import { closePopupWithOverlayClick } from "./utils.js";
 
 //variables editar perfil
 const profileButton = document.querySelector(".profile__edit-button");
-const inputName = document.querySelector("#input-name");
-const inputAbout = document.querySelector("#input-about");
+const inputName = document.querySelector("#name");
+const inputAbout = document.querySelector("#about-me");
 
 const addButton = document.querySelector(".profile__add-button");
 
@@ -58,8 +58,8 @@ const initialCards = [
 
 //instancias FormValidator
 const profileFormValidator = new FormValidator(validationConfig, profileForm);
-const addCardsFormValidator = new FormValidator(validationConfig, formAddCard);
 profileFormValidator.enableValidation();
+const addCardsFormValidator = new FormValidator(validationConfig, formAddCard);
 addCardsFormValidator.enableValidation();
 
 //function handleCardClick abre image size up
@@ -101,12 +101,19 @@ const popupProfileForm = new PopupWithForm("#popup-profile", (formData) => {
 
 //abrir editar perfil popup con datos existentes
 profileButton.addEventListener("click", () => {
-  console.log("Profile edit button click");
   popupProfileForm.open();
 
   const userData = userInfo.getUserInfo();
-  inputName.value = userData.name; //mensaje de error presente pero es funcional en el sitio
-  inputAbout.value = userData["about-me"];
+  inputName.value = userData.name;
+  inputAbout.value = userData.about;
+
+  // Resetear el formulario
+  profileFormValidator.resetForm();
+
+  // Comienza la validación para los campos al abrir el popup
+  profileFormValidator._inputList.forEach((input) => {
+    profileFormValidator._checkInputValidity(input); // Comprobamos la validez de cada input
+  });
 
   //reestablecer submit button
   profileFormValidator._toggleStateOfButton();
@@ -114,8 +121,17 @@ profileButton.addEventListener("click", () => {
 
 //abrir popup agregar card
 addButton.addEventListener("click", () => {
-  addCardsFormValidator._toggleStateOfButton();
   popupAddCardForm.open();
+
+  // Resetear el formulario
+  addCardsFormValidator.resetForm();
+
+  // Comienza la validación para los campos al abrir el popup
+  addCardsFormValidator._inputList.forEach((input) => {
+    addCardsFormValidator._checkInputValidity(input); // Comprobamos la validez de cada input
+  });
+
+  addCardsFormValidator._toggleStateOfButton();
 });
 
 //PopupWithForm para add card form
