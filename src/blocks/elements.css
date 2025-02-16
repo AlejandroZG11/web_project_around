@@ -25,7 +25,7 @@
 }
 
 .element__photo-trash {
-  background: url("/images/Trash.svg") no-repeat center;
+  background: url("../images/Trash.svg") no-repeat center;
   height: 19.3px;
   width: 18px;
   background-size: contain;
@@ -70,7 +70,7 @@
 .element__heart-button {
   width: 20px;
   height: 20px;
-  background: url("/images/heart_icon.png") no-repeat center;
+  background: url("../images/heart_icon.png") no-repeat center;
   background-position: center;
   background-size: contain;
   border: none;
@@ -84,7 +84,7 @@
 }
 
 .element__heart-button_active {
-  background: url("/images/heart_active.png") no-repeat center;
+  background: url("../images/heart_active.png") no-repeat center;
   background-position: center;
   background-size: contain;
   border: none;
