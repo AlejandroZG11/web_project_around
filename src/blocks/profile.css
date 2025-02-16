@@ -45,7 +45,6 @@
   gap: 18px;
   max-width: 414px;
   width: 100%;
-  justify-content: center;
   align-items: center;
 }
 
@@ -83,7 +82,7 @@
   padding: 0px;
   background-color: #000000;
   border: none;
-  background: url("../images/edit_button.png");
+  background: url("/images/edit_button.png") no-repeat center;
   margin: 0px;
   margin-top: -10px;
   cursor: pointer;
@@ -106,7 +105,7 @@
   outline: none;
   border: none;
   padding: 0px;
-  background-image: url("../images/add_button.svg");
+  background-image: url("/images/add_button.svg");
   background-size: auto;
   cursor: pointer;
   margin: auto;
@@ -169,11 +168,9 @@
   }
 
   .profile__edit-button {
-    max-width: 18px;
     height: 18px;
-    background-image: url("../images/edit_button.png");
+    background: url("/images/edit_button.png");
     background-color: #000000;
-    border: none;
     padding: 0px;
   }
 
@@ -186,6 +183,6 @@
     align-self: center;
     padding: 0px;
     max-width: 282px;
-    background-image: url("../images/add_button.svg");
+    background-image: url("/images/add_button.svg");
   }
 }
