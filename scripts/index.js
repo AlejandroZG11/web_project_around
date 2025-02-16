@@ -1,24 +1,25 @@
 //IMPORTACIONES
+import api from "./Api.js";
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 import { PopupWithForm } from "./PopupWithForm.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { Section } from "./Section.js";
 import { UserInfo } from "./UserInfo.js";
+import PopupWithConfirm from "./popupWithConfirm.js";
 import { closePopupWithOverlayClick } from "./utils.js";
 
-//variables editar perfil
+// VARIABLES DE PERFIL Y FORMULARIOS
 const profileButton = document.querySelector(".profile__edit-button");
 const inputName = document.querySelector("#name");
 const inputAbout = document.querySelector("#about-me");
-
 const addButton = document.querySelector(".profile__add-button");
-
-//variables forms
+const avatarEditButton = document.querySelector(".profile__avatar-edit");
 const formAddCard = document.querySelector("#cards-form");
 const profileForm = document.querySelector("#profile-form");
+const avatarForm = document.querySelector("#avatar-form");
 
-//variables validation
+// CONFIGURACIÓN DE VALIDACIÓN
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -28,132 +29,181 @@ const validationConfig = {
   errorClass: ".form__error_show",
 };
 
-//cards iniciales
-const initialCards = [
-  {
-    name: "Valle de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
-  },
-  {
-    name: "Montañas Calvas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
-  },
-  {
-    name: "Parque Nacional de la Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
-  },
-];
+// INSTANCIA DE UserInfo
+const userInfo = new UserInfo({
+  nameSelector: "#profile-name",
+  aboutSelector: "#profile-description",
+  avatarSelector: ".profile__avatar"
+});
 
-//instancias FormValidator
-const profileFormValidator = new FormValidator(validationConfig, profileForm);
-profileFormValidator.enableValidation();
-const addCardsFormValidator = new FormValidator(validationConfig, formAddCard);
-addCardsFormValidator.enableValidation();
+// POPUP DE IMÁGENES
+const popupWithImage = new PopupWithImage("#popup-size-card");
 
-//function handleCardClick abre image size up
+// SECCIÓN PARA TARJETAS
+const cardSection = new Section({
+  items: [],
+  renderer: (cardData) => {
+    const card = new Card(
+      cardData,
+      "#template-card",
+      handleCardClick,
+      handleDeleteClick,
+      handleLikeClick,
+      userInfo.getUserInfo().userId
+    );
+    cardSection.addItem(card.generateCard());
+  }
+}, ".elements__container");
+
+// FUNCIÓN PARA CARGAR DATOS AL INICIAR
+// Cargar datos de usuario y tarjetas al iniciar
+api.getAppData()
+  .then(({ userData, initialCards }) => {
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+      avatar: userData.avatar
+    });
+
+    // Crear y renderizar cada tarjeta correctamente
+    initialCards.forEach((cardData) => {
+      const card = new Card(
+        cardData,
+        "#template-card",
+        handleCardClick,
+        handleDeleteClick,
+        handleLikeClick,
+        userData._id  // Se pasa el ID del usuario para verificar permisos
+      );
+      const cardElement = card.generateCard();
+      cardSection.addItem(cardElement);
+    });
+  })
+  .catch((err) => console.error("Error al cargar datos iniciales:", err));
+
+// MANEJADORES DE EVENTOS
 function handleCardClick(name, link) {
   popupWithImage.open({ link, name });
 }
 
-//PopupWithImage para visualizar card size up
-const popupWithImage = new PopupWithImage("#popup-size-card");
-
-//Section para cards
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const card = new Card(cardData, "#template-card", handleCardClick);
-      const cardElement = card.generateCard();
-      cardSection.addItems(cardElement);
-    },
-  },
-  ".elements__container"
-);
-cardSection.renderItems();
-
-//instancia de UserInfo clase
-const userInfo = new UserInfo({
-  nameSelector: "#profile-name",
-  aboutSelector: "#profile-description",
+/// Inicializar el popup de confirmación una sola vez
+const confirmPopup = new PopupWithConfirm({
+  popupSelector: "#confirm-delete-popup"
 });
+confirmPopup.setEventListeners();
 
-//instancia PopupWithForm para profile
+// Función para confirmar y eliminar tarjeta
+function handleDeleteClick(cardId, cardElement) {
+  // Se pasa la función correctamente al abrir el popup
+  confirmPopup.open(() => {
+    api.deleteCard(cardId)
+      .then(() => {
+        cardElement.remove();
+        confirmPopup.close();
+      })
+      .catch(err => console.log(`Error al eliminar tarjeta: ${err}`));
+  });
+}
+
+
+
+function handleLikeClick(cardId, isLiked) {
+  return api.changeLikeCardStatus(cardId, !isLiked);  // Invertir el estado actual del like
+}
+
+// VALIDACIÓN DE FORMULARIOS
+const profileFormValidator = new FormValidator(validationConfig, profileForm);
+profileFormValidator.enableValidation();
+const addCardsFormValidator = new FormValidator(validationConfig, formAddCard);
+addCardsFormValidator.enableValidation();
+const avatarFormValidator = new FormValidator(validationConfig, avatarForm);
+avatarFormValidator.enableValidation();
+
+// POPUP PARA EDITAR PERFIL
 const popupProfileForm = new PopupWithForm("#popup-profile", (formData) => {
-  userInfo.setUserInfo({
+  popupProfileForm.renderLoading(true);
+  api.setUserInfo({
     name: formData.name,
     about: formData["about-me"],
-  });
-  popupProfileForm.close();
+  })
+    .then((data) => {
+      userInfo.setUserInfo({
+        name: data.name,
+        about: data.about,
+      });
+      popupProfileForm.close();
+    })
+    .catch((err) => console.error("Error al actualizar perfil:", err))
+    .finally(() => popupProfileForm.renderLoading(false));
 });
 
-//abrir editar perfil popup con datos existentes
+// ABRIR POPUP EDITAR PERFIL CON DATOS EXISTENTES
 profileButton.addEventListener("click", () => {
-  popupProfileForm.open();
-
   const userData = userInfo.getUserInfo();
   inputName.value = userData.name;
   inputAbout.value = userData.about;
-
-  // Resetear el formulario
-  profileFormValidator.resetForm();
-
-  // Comienza la validación para los campos al abrir el popup
-  profileFormValidator._inputList.forEach((input) => {
-    profileFormValidator._checkInputValidity(input); // Comprobamos la validez de cada input
-  });
-
-  //reestablecer submit button
-  profileFormValidator._toggleStateOfButton();
+  profileFormValidator.clearErrors();
+  popupProfileForm.open();
 });
 
-//abrir popup agregar card
-addButton.addEventListener("click", () => {
-  popupAddCardForm.open();
-
-  // Resetear el formulario
-  addCardsFormValidator.resetForm();
-
-  // Comienza la validación para los campos al abrir el popup
-  addCardsFormValidator._inputList.forEach((input) => {
-    addCardsFormValidator._checkInputValidity(input); // Comprobamos la validez de cada input
-  });
-
-  addCardsFormValidator._toggleStateOfButton();
-});
-
-//PopupWithForm para add card form
+// POPUP PARA AGREGAR NUEVA TARJETA
 const popupAddCardForm = new PopupWithForm("#popup-cards", (formData) => {
-  const cardData = {
+  popupAddCardForm.renderLoading(true, 'Crear');
+  api.addCard({
     name: formData.title,
     link: formData.link,
-  };
-
-  const card = new Card(cardData, "#template-card", handleCardClick);
-
-  const cardElement = card.generateCard();
-  cardSection.addItems(cardElement);
-  popupAddCardForm.close();
+  })
+    .then((cardData) => {
+      const card = new Card(
+        cardData,
+        "#template-card",
+        handleCardClick,
+        handleDeleteClick,
+        handleLikeClick,
+        userInfo.getUserInfo().userId
+      );
+      cardSection.addItem(card.generateCard());
+      popupAddCardForm.close();
+    })
+    .catch((err) => console.error("Error al agregar tarjeta:", err))
+    .finally(() => popupAddCardForm.renderLoading(false, 'Crear'));
 });
 
-//cerrar popup con overlay
+// ABRIR POPUP PARA AGREGAR TARJETA
+addButton.addEventListener("click", () => {
+  addCardsFormValidator.clearErrors();
+  popupAddCardForm.open();
+});
+
+// POPUP PARA EDITAR AVATAR
+const popupAvatarForm = new PopupWithForm("#profilepic-popup", (formData) => {
+  popupAvatarForm.renderLoading(true, 'Guardando...');
+  api.setUserAvatar(formData.avatar)
+    .then((data) => {
+      userInfo.setUserInfo({ avatar: data.avatar });
+      popupAvatarForm.close();
+    })
+    .catch((err) => console.error("Error al actualizar avatar:", err))
+    .finally(() => popupAvatarForm.renderLoading(false, 'Guardar'));
+});
+
+// Evento para abrir el popup de avatar
+avatarEditButton.addEventListener("click", () => {
+  if (popupAvatarForm) {
+    avatarFormValidator.clearErrors();  // Solo se ejecuta si el popup está abierto
+    popupAvatarForm.open();
+  }
+});
+
+
+// CERRAR POPUPS CON CLICK EN OVERLAY
 const popups = document.querySelectorAll(".popup");
 popups.forEach((popup) => {
   popup.addEventListener("click", closePopupWithOverlayClick);
 });
 
+// SET EVENT LISTENERS
 popupWithImage.setEventListeners();
 popupProfileForm.setEventListeners();
 popupAddCardForm.setEventListeners();
+popupAvatarForm.setEventListeners();

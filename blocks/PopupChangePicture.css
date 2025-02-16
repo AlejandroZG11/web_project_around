@@ -1,0 +1,68 @@
+.changeProfile {
+    display: none;
+    position: fixed;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .changeProfile__form {
+    position: relative;
+    justify-content: center;
+    margin: auto;
+  }
+  .changeProfile__fieldset {
+    width: 430px;
+    height: 272px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+  }
+  .changeProfile__buttonClose {
+    position: absolute;
+    max-width: 33px;
+    max-height: 33px;
+    cursor: pointer;
+    right: -40px;
+    top: -40px;
+  }
+  .changeProfile__picture {
+    margin: 34px auto 54px;
+    max-width: 358px;
+    max-height: 23px;
+  }
+  .changeProfile__inputChange {
+    margin: 0 36px 48px;
+    max-width: 358px;
+    width: 100%;
+    max-height: 27px;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid;
+  }
+  .changeProfile__savePicture {
+    margin: 0 36px 36px;
+    max-width: 358px;
+    width: 100%;
+    max-height: 50px;
+    height: 100%;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    border-radius: 2px;
+  }
+  @media screen and(max-width:890px) {
+    .changeProfile__fieldset {
+      max-width: 280px;
+      max-height: 150px;
+    }
+  }

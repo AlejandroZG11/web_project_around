@@ -5,13 +5,16 @@ export class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  //método público que renderiza todos los elementos en una página
+  // Renderizar todos los elementos en una página
   renderItems() {
-    this._items.forEach((item) => this._renderer(item));
+    this._items.forEach((item) => {
+      const cardElement = this._renderer(item);
+      this.addItem(cardElement);
+    });
   }
 
-  //toma elemento del DOM y lo agrega al contenedor
-  addItems(element) {
+
+  addItem(element) {
     this._container.prepend(element);
   }
 }

@@ -1,177 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="7th Project" />
-    <meta name="author" content="Alejandro Zuluaga" />
-    <meta name="keywords" content="HTML, CSS, JavaScript" />
-    <title>Around the U.S</title>
-    <link rel="stylesheet" href="vendor/normalize.css" />
-    <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="shortcut icon" href="./favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="page">
-      <header class="header">
-        <img
-          class="header__logo"
-          src="./images/logo.png"
-          alt="Logo de Around The U.S."
-        />
-        <img
-          class="header__line"
-          src="./images/header_line.png"
-          alt="Línea blanca separadora"
-        />
-      </header>
 
-      <!-- Perfil -->
-      <section class="profile">
-        <img
-          class="profile__avatar"
-          src="./images/profile.jpg"
-          alt="foto de perfil"
-        />
-        <div class="profile__contents">
-          <div class="profile__info">
-            <h1 class="profile__info-name" id="profile-name">
-              Alejandro Zuluaga
-            </h1>
-            <p class="profile__info-description" id="profile-description">
-              Explorer
-            </p>
-          </div>
-          <button type="submit" class="profile__edit-button"></button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Proyecto 12 - Alrededor de los Estados Unidos" />
+  <title>Around the U.S</title>
+  <link rel="stylesheet" href="vendor/normalize.css" />
+  <link rel="stylesheet" href="./pages/index.css" />
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,900&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/logo.png" alt="Logo de Around The U.S." />
+      <img class="header__line" src="./images/header_line.png" alt="Línea blanca separadora" />
+    </header>
+
+    <!-- Perfil -->
+    <section class="profile">
+      <div class="profile__avatar-section">
+        <img class="profile__avatar" src="./images/profile.jpg" alt="Foto de perfil" />
+        <button class="profile__avatar-edit">
+          <img id="avatar-edit" src="./images/edit_avatar.svg" alt="Botón de editar avatar">
+        </button>
+      </div>
+      <div class="profile__contents">
+        <div class="profile__info">
+          <h1 class="profile__info-name" id="profile-name">Alejandro Zuluaga</h1>
+          <p class="profile__info-description" id="profile-description">Explorer</p>
         </div>
-        <button
-          type="submit"
-          class="profile__add-button"
-          id="profile__add-button"
-        ></button>
-      </section>
+        <button type="button" class="profile__edit-button"></button>
+      </div>
+      <button type="button" class="profile__add-button" id="profile__add-button"></button>
+    </section>
 
-      <main class="elements">
-        <div class="elements__container" id="elements-container"></div>
-        <!--template para elements card-->
-        <template class="template__card" id="template-card">
-          <div class="element">
-            <button class="element__photo-trash"></button>
-            <img class="element__photo-link" src="" alt="" />
-            <div class="element__photo-info">
-              <p class="element__photo-name"></p>
-              <button
-                class="element__heart-button"
-                id="element-heart-button"
-              ></button>
-            </div>
+    <main class="elements">
+      <div class="elements__container" id="elements-container"></div>
+      <!-- Template para tarjetas -->
+      <template id="template-card">
+        <div class="element">
+          <button class="element__photo-trash"></button>
+          <img class="element__photo-link" src="" alt="" />
+          <div class="element__photo-info">
+            <p class="element__photo-name"></p>
+            <button class="element__heart-button"></button>
+            <span class="element__like-count"></span>
           </div>
-        </template>
-      </main>
-      <!-- Modal Edit Profile -->
-      <div class="popup" id="popup-profile">
-        <div class="form popup__overlay"></div>
-        <form class="form popup__form" id="profile-form">
-          <fieldset class="popup__form">
-            <button
-              class="popup__close-button"
-              type="button"
-              id="close-profile-popup"
-            ></button>
-            <h2 class="popup__title">Editar perfil</h2>
-            <input
-              class="popup__input"
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Nombre"
-              minlength="2"
-              maxlength="40"
-              required
-            />
-            <span class="input-error input-name-error" id="name-error"></span>
-            <input
-              class="popup__input"
-              type="text"
-              name="about-me"
-              id="about-me"
-              placeholder="Acerca de mí"
-              minlength="2"
-              maxlength="200"
-              required
-            />
-            <span
-              class="input-error input-about-error"
-              id="about-me-error"
-            ></span>
-            <button class="form__submit" type="submit">Guardar</button>
-          </fieldset>
-        </form>
-      </div>
-
-      <!-- Modal Edit Cards -->
-      <div class="popup" id="popup-cards">
-        <div class="form popup__overlay"></div>
-        <form class="form popup__form" id="cards-form">
-          <fieldset class="popup__form">
-            <button
-              class="popup__close-button"
-              type="button"
-              id="close-cards-popup"
-            ></button>
-            <h2 class="popup__title">Nuevo lugar</h2>
-            <input
-              class="popup__input"
-              type="text"
-              name="title"
-              id="title"
-              placeholder="Título"
-              minlength="2"
-              maxlength="30"
-              required
-            />
-            <span class="input-error input-title-error" id="title-error"></span>
-            <input
-              class="popup__input"
-              type="url"
-              name="link"
-              id="image-url"
-              placeholder="Enlace a la imagen"
-              required
-            />
-            <span
-              class="input-error input-link-error"
-              id="image-url-error"
-            ></span>
-            <button class="form__submit" type="submit">Crear</button>
-          </fieldset>
-        </form>
-      </div>
-
-      <div class="popup" id="popup-size-card">
-        <div class="popup popup__overlay"></div>
-        <div class="popup__photo-content">
-          <img
-            class="popup__close-card"
-            src="./images/container__close-icon.svg"
-            alt="boton para cerrar size-up popup"
-            id="popup-close-card"
-          />
-          <img src="" alt="" class="popup__photo-link" id="popup-image" />
-          <p class="popup__photo-name" id="popup-caption"></p>
         </div>
-      </div>
+      </template>
+    </main>
 
-      <footer class="footer">
-        <p class="footer__text">2025 Around The U.S.</p>
-      </footer>
+    <!-- Modal Edit Profile -->
+    <div class="popup" id="popup-profile">
+      <div class="popup__overlay"></div>
+      <form class="form popup__form" id="profile-form" novalidate>
+        <fieldset class="popup__form">
+          <button class="popup__close-button" type="button"></button>
+          <h2 class="popup__title">Editar perfil</h2>
+          <input class="popup__input" type="text" name="name" id="name" placeholder="Nombre" minlength="2"
+            maxlength="40" required />
+          <span class="input-error" id="name-error"></span>
+          <input class="popup__input" type="text" name="about-me" id="about-me" placeholder="Acerca de mí" minlength="2"
+            maxlength="200" required />
+          <span class="input-error" id="about-me-error"></span>
+          <button class="form__submit" type="submit">Guardar</button>
+        </fieldset>
+      </form>
     </div>
-    <script src="./scripts/index.js" type="module"></script>
-  </body>
+
+    <!-- Modal Add Card -->
+    <div class="popup" id="popup-cards">
+      <div class="popup__overlay"></div>
+      <form class="form popup__form" id="cards-form" novalidate>
+        <fieldset class="popup__form">
+          <button class="popup__close-button" type="button"></button>
+          <h2 class="popup__title">Nuevo lugar</h2>
+          <input class="popup__input" type="text" name="title" id="title" placeholder="Título" minlength="2"
+            maxlength="30" required />
+          <span class="input-error" id="title-error"></span>
+          <input class="popup__input" type="url" name="link" id="image-url" placeholder="Enlace a la imagen" required />
+          <span class="input-error" id="image-url-error"></span>
+          <button class="form__submit" type="submit">Crear</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- Modal Edit Avatar -->
+    <div class="popup" id="profilepic-popup">
+      <div class="popup__overlay"></div>
+      <form class="form popup__form" id="avatar-form" novalidate>
+        <fieldset class="popup__form">
+          <button class="popup__close-button" type="button"></button>
+          <h2 class="popup__title">Cambiar foto de perfil</h2>
+          <input class="popup__input" type="url" name="avatar" id="profilepic-input" placeholder="URL de la imagen"
+            required />
+          <span class="input-error" id="profilepic-input-error"></span>
+          <button class="form__submit" type="submit">Guardar</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- Modal Confirm Delete -->
+    <div class="popup" id="confirm-delete-popup">
+      <div class="popup__overlay"></div>
+      <form class="form popup__form" novalidate>
+        <fieldset class="popup__form">
+          <button class="popup__close-button" type="button"></button>
+          <h2 class="popup__title">¿Estás seguro?</h2>
+          <button class="form__submit" type="submit">Sí</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- Popup Image Size-Up -->
+    <div class="popup" id="popup-size-card">
+      <div class="popup__overlay"></div>
+      <div class="popup__photo-content">
+        <button class="popup__close-button" type="button"></button>
+        <img src="" alt="" class="popup__photo-link" />
+        <p class="popup__photo-name"></p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p class="footer__text">2025 Around The U.S.</p>
+    </footer>
+  </div>
+  <script src="./scripts/index.js" type="module"></script>
+</body>
+
 </html>

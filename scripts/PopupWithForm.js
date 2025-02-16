@@ -1,14 +1,14 @@
-import { Popup } from "./Popup.js";
+import { Popup } from './Popup.js';
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
-    this._form = this._popup.querySelector(".popup__form");
-    this._inputList = this._form.querySelectorAll(".popup__input");
+    this._form = this._popup.querySelector('.popup__form');
+    this._inputList = this._form.querySelectorAll('.popup__input');
+    this._submitButton = this._form.querySelector('.form__submit');
   }
 
-  //método privado para recopilar datos de enrada
   _getInputValues() {
     const formValues = {};
     this._inputList.forEach((input) => {
@@ -17,10 +17,13 @@ export class PopupWithForm extends Popup {
     return formValues;
   }
 
+  renderLoading(isLoading, buttonText = 'Guardar') {
+    this._submitButton.textContent = isLoading ? 'Guardando...' : buttonText;
+  }
+
   setEventListeners() {
     super.setEventListeners();
-    //modificaciones al método padre
-    this._form.addEventListener("submit", (evt) => {
+    this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
@@ -28,5 +31,9 @@ export class PopupWithForm extends Popup {
 
   close() {
     super.close();
+    this._form.reset();
+    this._inputList.forEach((input) => {
+      input.classList.remove('popup__input_type_error');
+    });
   }
 }
